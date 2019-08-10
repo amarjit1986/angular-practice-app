@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2">Search Id :</div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]='searchId'/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Start Time  </div>
+      <div class="col-md-2">
+        <input [owlDateTime]="startTime" [owlDateTimeTrigger]="startTime" [(ngModel)]="startDateTime" placeholder="Date Time">
+        <owl-date-time #startTime></owl-date-time>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">End Time  </div>
+      <div class="col-md-2">
+        <input [owlDateTime]="endTime" [owlDateTimeTrigger]="endTime" placeholder="Date Time">
+        <owl-date-time #endTime></owl-date-time>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">Data Package Type</div>
+      <div class="col-md-2">
+        <ng-multiselect-dropdown
+        [placeholder]="'custom placeholder'"
+        [data]="dropdownList"
+        [(ngModel)]="selectedItems"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
+      </div>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" (click)='getDataPackageList()'>
+          Search
+      </button>
+    </div>
+    <div class="table-responsive"> 
+      <table class="table" *ngIf='packages && packages.length'>
+        <thead class="thead">
+          <tr>
+            <th>GUID</th>
+            <th>Type Code</th>
+            <th>Config Type Code</th>
+            <th>Received Time</th>
+            <th>Expiration Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let package of packages'>
+            <td>{{package.GUID}}</td>
+            <td>{{package.TypeCode}}</td>
+            <td>{{package.ConfigTypeCode}}</td>
+            <td>{{package.ReceivedTime}}</td>
+            <td>{{package.ExpirationTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
